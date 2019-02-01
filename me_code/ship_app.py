@@ -9,6 +9,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\Users\\hselvaraju2\\Pycha
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = 'false'
 
 db = SQLAlchemy(app)
+db_file = os.getcwd() + "\pythonship01.db"
+
 
 @app.route('/')
 def index():
@@ -16,8 +18,7 @@ def index():
 
 @app.route('/api/ships')
 def show_table():
-    database = "pythonship01.db"
-    conn =MyShip_DB.create_connection(database)
+    conn = MyShip_DB.create_connection(db_file)
     data_table= MyShip_DB.show_table(conn,'Ship_Txn_new')
     return data_table
 
@@ -28,4 +29,4 @@ def ship_position():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1',port=5012,debug=True)
